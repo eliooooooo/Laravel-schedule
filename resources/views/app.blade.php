@@ -7,7 +7,11 @@
         @yield('title')
     </head>
     <body>
-        <h1>Laravel schedule</h1>
+        <nav>
+            <a href="{{ route('app') }}">Home</a>
+            <a href="{{ route('student.index') }}">Students</a>
+            <a href="{{ route('formation.index') }}">Formations</a>
+        </nav>
         @yield('contenu')
     </body>
 </html>

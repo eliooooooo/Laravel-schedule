@@ -28,3 +28,22 @@ a {
     color: #009879;
     text-decoration: none;
 }
+
+nav {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a {
+    padding: 1rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #046954;
+}
