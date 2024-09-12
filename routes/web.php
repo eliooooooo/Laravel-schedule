@@ -1,21 +1,12 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('app');
 });
 
-Route::get('/test', function(){
-    return view('test');
-});
-
-Route::get('/greeting/{name}', function(string $name){
-    return view('greeting', ['name' => $name]);
-});
-
-Route::get('/student', function(){
-    $students = Student::orderBy('lastname')->orderBy('firstname')->get();
-    return view('student.index', ['students' => $students]);
-});
+Route::get('/student', [StudentController::class, 'index'])->name('student.index');
+Route::get('/student/{student}', [StudentController::class, 'show'])->name('student.show');

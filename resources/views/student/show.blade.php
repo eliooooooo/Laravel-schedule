@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
+    <a href="{{ route('student.index') }}">Back to student list</a>
     <table>
         <thead>
             <tr>
@@ -14,19 +15,15 @@
                 <th>Firstname</th>
                 <th>Number</th>
                 <th>Email</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($students as $student)
-                <tr>
-                    <td>{{ $student->lastname }}</td>
-                    <td>{{ $student->firstname }}</td>
-                    <td>{{ $student->number }}</td>
-                    <td>{{ $student->email }}</td>
-                    <td><a href="{{ route('student.show', ['student' => $student]) }}">See details</a></td>
-                </tr>
-            @endforeach
+            <tr>
+                <td>{{ $student->lastname }}</td>
+                <td>{{ $student->firstname }}</td>
+                <td>{{ $student->number }}</td>
+                <td>{{ $student->email }}</td>
+            </tr>
         </tbody>
     </table>
 </body>
