@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,4 +13,9 @@ Route::get('/test', function(){
 
 Route::get('/greeting/{name}', function(string $name){
     return view('greeting', ['name' => $name]);
+});
+
+Route::get('/student', function(){
+    $students = Student::orderBy('lastname')->orderBy('firstname')->get();
+    return view('student.index', ['students' => $students]);
 });
