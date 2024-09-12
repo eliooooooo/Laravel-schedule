@@ -12,6 +12,7 @@
             <th>Lastname</th>
             <th>Firstname</th>
             <th>Number</th>
+            <th>Formation</th>
             <th>Email</th>
         </tr>
     </thead>
@@ -20,6 +21,7 @@
             <td>{{ $student->lastname }}</td>
             <td>{{ $student->firstname }}</td>
             <td>{{ $student->number }}</td>
+            <td>{{ $student->formations->name }}</td>
             <td>{{ $student->email }}</td>
         </tr>
     </tbody>
