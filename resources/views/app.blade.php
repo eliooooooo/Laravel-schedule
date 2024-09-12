@@ -4,9 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <title>Laravel</title>
+        @yield('title')
     </head>
     <body>
-        <h1>APP</h1>
+        <h1>Laravel schedule</h1>
+        @yield('contenu')
     </body>
 </html>
