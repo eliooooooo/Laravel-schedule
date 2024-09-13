@@ -1,10 +1,8 @@
-@extends('app')
+@extends('layouts.front')
 
-@section('title')
-<title>{{ $student->lastname }} {{ $student->firstname }}</title>
-@endsection
+@section('title'){{ $student->lastname }} {{ $student->firstname }}@endsection
 
-@section('contenu')
+@section('main')
 <a href="{{ route('student.index') }}">Back to student list</a>
 <table>
     <thead>

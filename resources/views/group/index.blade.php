@@ -1,10 +1,8 @@
-@extends('app')
+@extends('layouts.front')
 
-@section('title')
-<title>Group list</title>
-@endsection
+@section('title', 'Group list')
 
-@section('contenu')
+@section('main')
 <table>
     <thead>
         <tr>

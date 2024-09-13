@@ -1,10 +1,8 @@
-@extends('app')
+@extends('layouts.front')
 
-@section('title')
-<title>Formation list</title>
-@endsection
+@section('title', 'Formation list')
 
-@section('contenu')
+@section('main')
 <table>
     <thead>
         <tr>

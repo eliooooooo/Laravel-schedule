@@ -1,10 +1,8 @@
-@extends('app')
+@extends('layouts.front')
 
-@section('title')
-<title>{{ $course->name }}</title>
-@endsection
+@section('title'){{ $course->name }}@endsection
 
-@section('contenu')
+@section('main')
 <div>
     <h1>Course : {{ $course->name }}</h1>
     <p>The {{ $course->start->format('D n M Y') }} from {{ $course->start->format('H:i') }} to {{ $course->end->format('H:i') }}</p>

@@ -1,10 +1,8 @@
-@extends('app')
+@extends('layouts.front')
 
-@section('title')
-<title>Courses</title>
-@endsection
+@section('title', 'Courses')
 
-@section('contenu')
+@section('main')
 <table>
     <thead>
         <tr>

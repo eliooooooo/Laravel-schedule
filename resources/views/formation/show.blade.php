@@ -1,10 +1,8 @@
-@extends('app')
+@extends('layouts.front')
 
-@section('title')
-<title>{{ $formation->name }}</title>
-@endsection
+@section('title'){{ $formation->name }}@endsection
 
-@section('contenu')
+@section('main')
 <a href="{{ route('formation.index') }}">Back to formation list</a>
 <h1>{{ $formation->name }}</h1>
 <table>

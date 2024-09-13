@@ -1,10 +1,8 @@
-@extends('app')
+@extends('layouts.front')
 
-@section('title')
-<title>{{ $group->name }}</title>
-@endsection
+@section('title'){{ $group->name }}@endsection
 
-@section('contenu')
+@section('main')
 <a href="{{ route('group.index') }}">Back to groups list</a>
 <h1>{{ $group->name }}</h1>
 <table>
