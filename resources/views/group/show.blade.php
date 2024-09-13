@@ -14,19 +14,21 @@
             <th>Firstname</th>
             <th>Number</th>
             <th>Email</th>
+            <th>Formations</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        {{-- @foreach ($formation->students as $student)
+        @foreach ($group->students as $student)
             <tr>
                 <td>{{ $student->lastname }}</td>
                 <td>{{ $student->firstname }}</td>
                 <td>{{ $student->number }}</td>
                 <td>{{ $student->email }}</td>
+                <td><a href="{{ route('formation.show', ['formation' => $student->formation]) }}">{{ $student->formation->name }}</a></td>
                 <td><a href="{{ route('student.show', ['student' => $student]) }}">See details</a></td>
             </tr>
-        @endforeach --}}
+        @endforeach
     </tbody>
 </table>
 @endsection
