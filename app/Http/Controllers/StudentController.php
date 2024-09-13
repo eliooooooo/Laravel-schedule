@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
     public function index() {
-        $students = Student::orderBy('lastname')->orderBy('firstname')->get();
+        $students = Student::orderBy('lastname')->orderBy('firstname')
+        ->with('formation', 'groups')
+        ->get();
         return view('student.index', ['students' => $students]);
     }
 
