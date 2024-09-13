@@ -7,7 +7,7 @@
 @section('contenu')
 <div>
     <h1>Course : {{ $course->name }}</h1>
-    <p>{{ $course->start }} - {{ $course->end }}</p>
+    <p>The {{ $course->start->format('D n M Y') }} from {{ $course->start->format('H:i') }} to {{ $course->end->format('H:i') }}</p>
     <p>Room : {{ $course->room }}</p>
 </div>
 
@@ -24,16 +24,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($course->group->students as $student)
+        @foreach ($course->students() as $student)
             <tr>
                 <td>{{ $student->lastname }}</td>
                 <td>{{ $student->firstname }}</td>
                 <td>{{ $student->number }}</td>
                 <td>{{ $student->email }}</td>
                 <td>
-                    @foreach ($student->groups as $group)
-                        <a href="{{ route('group.show', ['group' => $group]) }}">{{ $group->name }}</a>
-                    @endforeach
+                    <a href="{{ route('group.show', ['group' => $course->group]) }}">{{ $course->group->name }}</a>
                 </td>
                 <td><a href="{{ route('formation.show', ['formation' => $student->formation]) }}">{{ $student->formation->name }}</a></td>
                 <td><a href="{{ route('student.show', ['student' => $student]) }}">See details</a></td>

@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 class CourseController extends Controller
 {
     public function index() {
-        $courses = Course::orderBy('start')->get();
+        $courses = Course::orderBy('start')
+        ->with('formation', 'group')
+        ->get();
         return view('course.index', ['courses' => $courses]);
     }
 
