@@ -18,7 +18,7 @@ class StudentSeeder extends Seeder
     {
         $formations = Formation::all()->pluck('id');
         $groups = Group::all()->pluck('id');
-        Student::factory(20)
+        Student::factory(80)
             ->state(new Sequence(
                 fn(Sequence $sequence) => ['formation_id' => $formations->random()]
             ))

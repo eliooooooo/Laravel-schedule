@@ -18,7 +18,7 @@ class CourseSeeder extends Seeder
     {
         $formations = Formation::all()->pluck('id');
         $groups = Group::all()->pluck('id');
-        Course::factory(60)
+        Course::factory(100)
             ->state(new Sequence(
                 fn(Sequence $sequence) => ['formation_id' => $formations->random(), 'group_id' => $groups->random()]
             ))
