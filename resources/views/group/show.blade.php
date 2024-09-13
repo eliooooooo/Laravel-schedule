@@ -19,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($group->students as $student)
+        @foreach ($group->students()->with('formation')->orderBy('formation_id')->get() as $student)
             <tr>
                 <td>{{ $student->lastname }}</td>
                 <td>{{ $student->firstname }}</td>
