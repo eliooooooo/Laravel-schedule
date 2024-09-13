@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Formation;
+use App\Models\Group;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
@@ -16,9 +17,12 @@ class StudentSeeder extends Seeder
     public function run(): void
     {
         $formations = Formation::all()->pluck('id');
+        $groups = Group::all()->pluck('id');
         Student::factory(20)
             ->state(new Sequence(
                 fn(Sequence $sequence) => ['formation_id' => $formations->random()]
-            ))->create();
+            ))
+            ->afterCreating(fn(Student $student) => $student->groups()->attach($groups->random()))
+            ->create();
     }
 }
