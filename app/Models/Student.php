@@ -9,7 +9,7 @@ class Student extends Model
 {
     use HasFactory;
 
-    public function formations() {
+    public function formation() {
         return $this->belongsTo(Formation::class);
     }
 }

@@ -23,7 +23,7 @@
                 <td>{{ $student->firstname }}</td>
                 <td>{{ $student->number }}</td>
                 <td>{{ $student->email }}</td>
-                <td>{{ $student->formations->name }}</td>
+                <td><a href="{{ route('formation.show', ['formation' => $student->formation]) }}">{{ $student->formation->name }}</a></td>
                 <td><a href="{{ route('student.show', ['student' => $student]) }}">See details</a></td>
             </tr>
         @endforeach

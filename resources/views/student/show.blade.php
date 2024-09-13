@@ -21,7 +21,7 @@
             <td>{{ $student->lastname }}</td>
             <td>{{ $student->firstname }}</td>
             <td>{{ $student->number }}</td>
-            <td>{{ $student->formations->name }}</td>
+            <td><a href="{{ route('formation.show', ['formation' => $student->formation]) }}">{{ $student->formation->name }}</a></td>
             <td>{{ $student->email }}</td>
         </tr>
     </tbody>
