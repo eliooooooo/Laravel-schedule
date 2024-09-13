@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\StudentController;
@@ -18,3 +19,6 @@ Route::get('/formation/{formation}', [FormationController::class, 'show'])->name
 
 Route::get('/group', [GroupController::class, 'index'])->name('group.index');
 Route::get('/group/{group}', [GroupController::class, 'show'])->name('group.show');
+
+Route::get('/course', [CourseController::class, 'index'])->name('course.index');
+Route::get('/course/{course}', [CourseController::class, 'show'])->name('course.show');
