@@ -11,6 +11,7 @@
             <a href="{{ route('app') }}">Home</a>
             <a href="{{ route('student.index') }}">Students</a>
             <a href="{{ route('formation.index') }}">Formations</a>
+            <a href="{{ route('group.index') }}">Groups</a>
         </nav>
         @yield('contenu')
     </body>
