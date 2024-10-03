@@ -18,6 +18,10 @@
         </header>
         <main>
             @yield('main')
+            <div>
+                <a href="{{ route('profile') }}">Profile</a>
+                <a href="{{ route('dashboard') }}">Dashboard</a>
+            </div>
         </main>
         <footer></footer>
     </body>
