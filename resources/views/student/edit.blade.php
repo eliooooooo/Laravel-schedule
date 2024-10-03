@@ -21,15 +21,7 @@
         </div>
         <div>
             <label for="formation">Formation<span style="color: red;">*</span></label>
-            <select id="formation" name="formation_id">
-                @foreach ($formations as $formation)
-                    <option value="{{ $formation->id }}" @if ($student->formation_id == $formation->id) selected @endif>
-                        {{ $formation->name }}</option>
-                @endforeach
-            </select>
-            @error('formation_id')
-                <span style="display: block; color: red;">{{ $message }}</span>
-            @enderror
+            <x-form.select name="formation_id" :options="$formations->pluck('name', 'id')" :value="$student->formation_id" />
         </div>
         <button type="submit">Edit</button>
     </form>

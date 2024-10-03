@@ -17,7 +17,11 @@
                 <td>{{ $student->lastname }}</td>
                 <td>{{ $student->firstname }}</td>
                 <td>{{ $student->number }}</td>
-                <td><a href="{{ route('formation.show', ['formation' => $student->formation]) }}">{{ $student->formation->name }}</a></td>
+                <td>
+                    @if ($student->formation)
+                        <a href="{{ route('formation.show', ['formation' => $student->formation]) }}">{{ $student->formation->name }}</a>
+                    @endif
+                </td>
                 <td>
                     @foreach ($student->groups as $group)
                         <a href="{{ route('group.show', ['group' => $group]) }}">{{ $group->name }}</a>
@@ -27,4 +31,9 @@
             </tr>
         </tbody>
     </table>
+    <form action="{{ route('student.destroy', ['student' => $student]) }}" method="POST">
+        @csrf
+        @method('delete')
+        <button type="submit">Delete</button>
+    </form>
 </x-layout.front>

@@ -19,7 +19,11 @@
                     <td>{{ $student->firstname }}</td>
                     <td>{{ $student->number }}</td>
                     <td>{{ $student->email }}</td>
-                    <td><a href="{{ route('formation.show', ['formation' => $student->formation]) }}">{{ $student->formation->name }}</a></td>
+                    <td>
+                        @if ($student->formation)
+                            <a href="{{ route('formation.show', ['formation' => $student->formation]) }}">{{ $student->formation->name }}</a>
+                        @endif
+                    </td>
                     <td>
                         @foreach ($student->groups as $group)
                             <a href="{{ route('group.show', ['group' => $group]) }}">{{ $group->name }}</a>

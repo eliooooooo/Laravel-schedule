@@ -20,14 +20,7 @@
         </div>
         <div>
             <label for="formation">Formation<span style="color: red;">*</span></label>
-            <select id="formation" name="formation_id">
-                @foreach($formations as $formation)
-                    <option value="{{ $formation->id }}">{{ $formation->name }}</option>
-                @endforeach
-            </select>
-            @error('formation_id')
-                <span style="display: block; color: red;">{{ $message }}</span>
-            @enderror
+            <x-form.select name="formation_id" :options="$formations->pluck('name', 'id')" />
         </div>
         <button type="submit">Create</button>
     </form>
