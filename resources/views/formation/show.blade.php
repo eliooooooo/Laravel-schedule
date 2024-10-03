@@ -31,4 +31,9 @@
     </table>
 
     <a href="{{ route('formation.edit', ['formation' => $formation]) }}">Edit</a>
+    <form action="{{ route('formation.destroy', ['formation'=> $formation]) }}" method="POST">
+        @method('delete')
+        @csrf
+        <button type="submit">Delete</button>
+    </form>
 </x-layout.front>

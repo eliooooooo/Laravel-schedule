@@ -44,4 +44,10 @@ class FormationController extends Controller
         $formation->save();
         return redirect()->route('formation.index');
     }
+
+    public function destroy(Formation $formation){
+        $formation->delete();
+        return redirect()->route('formation.index');
+    }
+
 }

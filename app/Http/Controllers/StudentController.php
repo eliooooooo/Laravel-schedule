@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentRequest;
 use App\Models\Formation;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -20,22 +21,11 @@ class StudentController extends Controller
         return view('student.create', ['formations' => $formations]);
     }
 
-    public function store(Request $request){
-        $data = $request->validate([
-            "lastname" => "required|string",
-            "firstname" => "required|string",
-            "number" => "required|numeric",
-            "email" => "required|email",
-            "formation_id" => "required|numeric"
-        ]);
+    public function store(StudentRequest $request){
+        $data = $request->validated();
 
         $student = new Student();
         $student->fill($data);
-        // $student->lastname = $data["lastname"];
-        // $student->firstname = $data["firstname"];
-        // $student->number = $data["number"];
-        // $student->email = $data["email"];
-        // $student->formation_id = $data["formation_id"];
         $student->save();
 
         return redirect()->route('student.create');
@@ -50,23 +40,17 @@ class StudentController extends Controller
         return view('student.edit', ['student' => $student, 'formations' => $formations]);
     }
 
-    public function update(Request $request, Student $student){
-        $data = $request->validate([
-            "lastname" => "required|string",
-            "firstname" => "required|string",
-            "number" => "required|numeric",
-            "email" => "required|email",
-            "formation_id" => "required|numeric"
-        ]);
+    public function update(StudentRequest $request, Student $student){
+        $data = $request->validated();
 
         $student->fill($data);
-        // $student->lastname = $data["lastname"];
-        // $student->firstname = $data["firstname"];
-        // $student->number = $data["number"];
-        // $student->email = $data["email"];
-        // $student->formation_id = $data["formation_id"];
         $student->save();
 
         return redirect()->route('student.show', ['student' => $student]);
+    }
+
+    public function destroy(Student $student){
+        $student->delete();
+        return redirect()->route('student.index');
     }
 }
