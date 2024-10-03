@@ -1,5 +1,7 @@
 <x-layout.front title="Student table">
-    <a href="{{ route('student.create') }}">Create a student</a>
+    @can('create', \App\Models\Student::class)
+        <a href="{{ route('student.create') }}">Create a student</a>
+    @endcan
     <table>
         <thead>
             <tr>

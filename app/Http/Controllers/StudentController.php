@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StudentRequest;
 use App\Models\Formation;
 use App\Models\Student;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index() {
+        $this->authorize('viewAny', Student::class);
         $students = Student::orderBy('lastname')->orderBy('firstname')
         ->with('formation', 'groups')
         ->get();
@@ -17,11 +22,14 @@ class StudentController extends Controller
     }
 
     public function create(){
+        $this->authorize('create', Student::class);
         $formations = Formation::get();
         return view('student.create', ['formations' => $formations]);
     }
 
     public function store(StudentRequest $request){
+        $this->authorize('create', Student::class);
+
         $data = $request->validated();
 
         $student = new Student();
