@@ -17,8 +17,12 @@ class FormationController extends Controller
     }
 
     public function store(Request $request){
+        $data = $request->validate(
+            ['name' => 'required']
+        );
+
         $formation = new Formation();
-        $formation->name = $request->input('name');
+        $formation->fill($data);
         $formation->save();
         return redirect()->route('formation.index');
     }
