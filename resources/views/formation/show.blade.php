@@ -29,4 +29,6 @@
             @endforeach
         </tbody>
     </table>
+
+    <a href="{{ route('formation.edit', ['formation' => $formation]) }}">Edit</a>
 </x-layout.front>

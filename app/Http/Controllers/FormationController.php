@@ -30,4 +30,18 @@ class FormationController extends Controller
     public function show(Formation $formation) {
         return view('formation.show', ['formation' => $formation]);
     }
+
+    public function edit(Formation $formation){
+        return view('formation.edit', ['formation' => $formation]);
+    }
+
+    public function update(Request $request, Formation $formation){
+        $data = $request->validate(
+            ['name' => 'required']
+        );
+
+        $formation->fill($data);
+        $formation->save();
+        return redirect()->route('formation.index');
+    }
 }
