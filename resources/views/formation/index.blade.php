@@ -1,4 +1,5 @@
 <x-layout.front title="Formation list">
+    <a href="{{ route('formation.create') }}">Create a formation</a>
     <table>
         <thead>
             <tr>
