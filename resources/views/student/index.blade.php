@@ -1,4 +1,5 @@
 <x-layout.front title="Student table">
+    <a href="{{ route('student.create') }}">Create a student</a>
     <table>
         <thead>
             <tr>
