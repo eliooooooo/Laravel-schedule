@@ -44,4 +44,29 @@ class StudentController extends Controller
     public function show(Student $student) {
         return view('student.show', ['student' => $student]);
     }
+
+    public function edit(Student $student){
+        $formations = Formation::get();
+        return view('student.edit', ['student' => $student, 'formations' => $formations]);
+    }
+
+    public function update(Request $request, Student $student){
+        $data = $request->validate([
+            "lastname" => "required|string",
+            "firstname" => "required|string",
+            "number" => "required|numeric",
+            "email" => "required|email",
+            "formation_id" => "required|numeric"
+        ]);
+
+        $student->fill($data);
+        // $student->lastname = $data["lastname"];
+        // $student->firstname = $data["firstname"];
+        // $student->number = $data["number"];
+        // $student->email = $data["email"];
+        // $student->formation_id = $data["formation_id"];
+        $student->save();
+
+        return redirect()->route('student.show', ['student' => $student]);
+    }
 }

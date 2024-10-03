@@ -1,5 +1,6 @@
 <x-layout.front title="{{ $student->lastname }} {{ $student->firstname }}">
     <a href="{{ route('student.index') }}">Back to student list</a>
+    <a href="{{ route('student.edit', ['student' => $student]) }}">Edit student</a>
     <table>
         <thead>
             <tr>
