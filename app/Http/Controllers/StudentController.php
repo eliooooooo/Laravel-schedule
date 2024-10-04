@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentRequest;
 use App\Models\Formation;
+use App\Models\Group;
 use App\Models\Student;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Gate;
@@ -31,8 +32,9 @@ class StudentController extends Controller
     {
         Gate::authorize('create', Student::class);
         $formations = Formation::get();
+        $groups = Group::get();
 
-        return view('student.create', ['formations' => $formations]);
+        return view('student.create', ['formations' => $formations, 'groups' => $groups]);
     }
 
     public function store(StudentRequest $request)
@@ -44,6 +46,8 @@ class StudentController extends Controller
         $student = new Student;
         $student->fill($data);
         $student->save();
+
+        $student->groups()->attach($data['groups'] ?? null);
 
         return redirect()->route('student.create');
     }
@@ -59,8 +63,9 @@ class StudentController extends Controller
     {
         Gate::authorize('update', $student);
         $formations = Formation::get();
+        $groups = Group::get();
 
-        return view('student.edit', ['student' => $student, 'formations' => $formations]);
+        return view('student.edit', ['student' => $student, 'formations' => $formations, 'groups' => $groups]);
     }
 
     public function update(StudentRequest $request, Student $student)
@@ -70,6 +75,8 @@ class StudentController extends Controller
 
         $student->fill($data);
         $student->save();
+
+        $student->groups()->sync($data['groups'] ?? null);
 
         return redirect()->route('student.show', ['student' => $student]);
     }

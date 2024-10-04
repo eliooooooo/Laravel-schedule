@@ -13,6 +13,6 @@
         <option value="{{ $option_value }}" @if (old($name, $value) == $option_value) selected @endif>{{ $text }}</option>
     @endforeach
 </select>
-@error('formation_id')
+@error($name)
     <span style="display: block; color: red;">{{ $message }}</span>
 @enderror

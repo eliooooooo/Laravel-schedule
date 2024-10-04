@@ -23,6 +23,7 @@
             <label for="formation">Formation<span style="color: red;">*</span></label>
             <x-form.select name="formation_id" :options="$formations->pluck('name', 'id')" :value="$student->formation_id" />
         </div>
+        <x-form.checkboxes name="groups" :value="$student->groups->pluck('id')" :options="$groups->pluck('name', 'id')" ></x-form.checkboxes>
         <button type="submit">Edit</button>
     </form>
 </x-layout.front>
