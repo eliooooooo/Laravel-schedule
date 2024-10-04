@@ -1,6 +1,8 @@
 <x-layout.front title="{{ $student->lastname }} {{ $student->firstname }}">
     <a href="{{ route('student.index') }}">Back to student list</a>
-    <a href="{{ route('student.edit', ['student' => $student]) }}">Edit student</a>
+    @can('update', $student)
+        <a href="{{ route('student.edit', ['student' => $student]) }}">Edit student</a>
+    @endcan
     <table>
         <thead>
             <tr>
@@ -31,9 +33,11 @@
             </tr>
         </tbody>
     </table>
-    <form action="{{ route('student.destroy', ['student' => $student]) }}" method="POST">
-        @csrf
-        @method('delete')
-        <button type="submit">Delete</button>
-    </form>
+    @can('delete', $student)
+        <form action="{{ route('student.destroy', ['student' => $student]) }}" method="POST">
+            @csrf
+            @method('delete')
+            <button type="submit">Delete</button>
+        </form>
+    @endcan
 </x-layout.front>

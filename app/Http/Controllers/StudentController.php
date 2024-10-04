@@ -8,13 +8,19 @@ use App\Models\Student;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class StudentController extends Controller
 {
     use AuthorizesRequests;
 
     public function index() {
-        $this->authorize('viewAny', Student::class);
+        // Nécessite l'import de la facade Gate
+        Gate::authorize('viewAny', Student::class);
+
+        // Nécessite l'import de use AuthorizeRequests
+        // $this->authorize('viewAny', Student::class);
+
         $students = Student::orderBy('lastname')->orderBy('firstname')
         ->with('formation', 'groups')
         ->get();
@@ -22,13 +28,13 @@ class StudentController extends Controller
     }
 
     public function create(){
-        $this->authorize('create', Student::class);
+        Gate::authorize('create', Student::class);
         $formations = Formation::get();
         return view('student.create', ['formations' => $formations]);
     }
 
     public function store(StudentRequest $request){
-        $this->authorize('create', Student::class);
+        Gate::authorize('create', Student::class);
 
         $data = $request->validated();
 
@@ -40,15 +46,18 @@ class StudentController extends Controller
     }
 
     public function show(Student $student) {
+        Gate::authorize('view', $student);
         return view('student.show', ['student' => $student]);
     }
 
     public function edit(Student $student){
+        Gate::authorize('update', $student);
         $formations = Formation::get();
         return view('student.edit', ['student' => $student, 'formations' => $formations]);
     }
 
     public function update(StudentRequest $request, Student $student){
+        Gate::authorize('update', $student);
         $data = $request->validated();
 
         $student->fill($data);
@@ -58,6 +67,8 @@ class StudentController extends Controller
     }
 
     public function destroy(Student $student){
+        Gate::authorize('destroy', $student);
+
         $student->delete();
         return redirect()->route('student.index');
     }

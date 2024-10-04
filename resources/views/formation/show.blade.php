@@ -30,10 +30,14 @@
         </tbody>
     </table>
 
-    <a href="{{ route('formation.edit', ['formation' => $formation]) }}">Edit</a>
-    <form action="{{ route('formation.destroy', ['formation'=> $formation]) }}" method="POST">
-        @method('delete')
-        @csrf
-        <button type="submit">Delete</button>
-    </form>
+    @can('update', $formation)
+        <a href="{{ route('formation.edit', ['formation' => $formation]) }}">Edit</a>
+    @endcan
+    @can('delete', $formation)
+        <form action="{{ route('formation.destroy', ['formation'=> $formation]) }}" method="POST">
+            @method('delete')
+            @csrf
+            <button type="submit">Delete</button>
+        </form>
+    @endcan
 </x-layout.front>

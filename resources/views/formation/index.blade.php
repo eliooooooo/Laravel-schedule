@@ -1,5 +1,7 @@
 <x-layout.front title="Formation list">
-    <a href="{{ route('formation.create') }}">Create a formation</a>
+    @can('create', \App\Models\Formation::class)
+        <a href="{{ route('formation.create') }}">Create a formation</a>
+    @endcan
     <table>
         <thead>
             <tr>
