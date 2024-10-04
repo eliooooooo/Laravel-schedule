@@ -17,7 +17,7 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
 
 Route::get('/', function () {
     return view('layouts.front');
@@ -36,4 +36,3 @@ Route::get('/group/{group}', [GroupController::class, 'show'])->name('group.show
 // Route::get('/course/{course}', [CourseController::class, 'show'])->name('course.show');
 // Route::get('/course/{course}/edit', [CourseController::class, 'edit'])->name('course.edit');
 // Route::put('/course/{course}', [CourseController::class, 'update'])->name('course.update');
-

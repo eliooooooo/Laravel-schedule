@@ -22,11 +22,11 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "lastname" => "required|string",
-            "firstname" => "required|string",
-            "number" => "required|numeric",
-            "email" => "required|email",
-            "formation_id" => "required|numeric|exists:formations,id"
+            'lastname' => 'required|string',
+            'firstname' => 'required|string',
+            'number' => 'required|numeric',
+            'email' => 'required|email',
+            'formation_id' => 'required|numeric|exists:formations,id',
         ];
     }
 }

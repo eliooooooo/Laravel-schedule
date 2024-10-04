@@ -11,7 +11,7 @@ class Front extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public $title='Laravel schedule')
+    public function __construct(public $title = 'Laravel schedule')
     {
         //
     }

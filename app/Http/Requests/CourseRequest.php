@@ -26,7 +26,7 @@ class CourseRequest extends FormRequest
             'end' => 'required|date|after:start',
             'name' => 'required',
             'room' => 'required',
-            'formation_id' => 'required|numeric'
+            'formation_id' => 'required|numeric',
         ];
     }
 }
