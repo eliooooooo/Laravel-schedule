@@ -1,4 +1,7 @@
 <x-layout.front title="Courses">
+    @can('create', \App\Models\Course::class)
+        <a href="{{ route('course.create') }}">Create a course</a>
+    @endcan
     <table>
         <thead>
             <tr>
@@ -18,7 +21,11 @@
                     <td>{{ $course->start }}</td>
                     <td>{{ $course->end }}</td>
                     <td>{{ $course->room }}</td>
-                    <td><a href="{{ route('group.show', ['group' => $course->group]) }}">{{ $course->group->name }}</a></td>
+                    <td>
+                        @if ($course->group)
+                            <a href="{{ route('group.show', ['group' => $course->group]) }}">{{ $course->group->name }}</a>
+                        @endif
+                    </td>
                     <td><a href="{{ route('formation.show', ['formation' => $course->formation]) }}">{{ $course->formation->name }}</a></td>
                     <td><a href="{{ route('course.show', ['course' => $course]) }}">See details</a></td>
                 </tr>

@@ -33,4 +33,15 @@
             @endforeach
         </tbody>
     </table>
+
+    @can('update', $course)
+        <a href="{{ route('course.edit', ['course' => $course]) }}">Edit</a>
+    @endcan
+    @can('delete', $course)
+        <form action="{{ route('course.destroy', ['course'=> $course]) }}" method="POST">
+            @method('delete')
+            @csrf
+            <button type="submit">Delete</button>
+        </form>
+    @endcan
 </x-layout.front>

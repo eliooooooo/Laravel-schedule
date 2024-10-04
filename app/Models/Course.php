@@ -9,6 +9,14 @@ class Course extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'start',
+        'end',
+        'name',
+        'room',
+        'formation_id'
+    ];
+
     protected $casts = [
         'start' => 'datetime',
         'end' => 'datetime'
