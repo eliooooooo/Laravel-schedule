@@ -2,49 +2,83 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CourseRequest;
-use App\Http\Requests\ScheduleRequest;
 use App\Models\Course;
 use App\Models\Formation;
 use App\Models\Group;
+use App\Models\Student;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
-    public function index($filters = [])
+    public function index(Request $request)
     {
-        if(count($filters) > 0) {
-            $courses = Course::where('start', '>=', $filters['start'])
-                ->where('formation_id', $filters['formation_id'])
-                ->where('group_id', $filters['group_id'])
-                ->where('room', 'like', "%{$filters['room']}%")
-                ->orderBy('start')
-                ->get();
-        } else {
-            $start = now();
-            $end = now()->addDays(7);
+        $filters = $request->validate([
+            'start' => 'nullable|date',
+            'end'   => 'nullable|date|after_or_equal:start',
+            'formation'      => 'nullable|integer|exists:formations,id',
+            'groups'     => 'nullable|array',
+            'groups.*'   => 'integer|exists:groups,id',
+            'student'    => 'nullable|integer|exists:students,id',
+        ]);
 
-            $courses = Course::whereBetween('start', [$start, $end])
+        $courses = Course::with(['formation', 'group'])
             ->orderBy('start')
+            ->orderBy('end')
+            ->when(
+                $filters['start'] ?? null,
+                fn(Builder $query): Builder => $query
+                    ->where(fn(Builder $query) => $query
+                        ->whereDate('start', '>=', $filters['start'])
+                        ->orWhere(
+                            fn(Builder $query): Builder => $query->whereDate('end', '>=', $filters['start'])
+                                ->whereDate('start', '<=', $filters['start'])
+                        ))
+            )
+            ->when(
+                $filters['end'] ?? null,
+                fn(Builder $query): Builder => $query
+                    ->where(
+                        fn(Builder $query): Builder => $query
+                            ->whereDate('end', '<=', $filters['end'])
+                            ->orWhere(
+                                fn(Builder $query): Builder => $query->whereDate('end', '>=', $filters['end'])
+                                    ->whereDate('start', '<=', $filters['end'])
+                            )
+                    )
+            )
+            ->when(
+                $filters['formation'] ?? null,
+                fn(Builder $query): Builder => $query
+                    ->where('formation_id', '=', $filters['formation'])
+            )
+            ->when(
+                !empty($filters['groups']),
+                fn(Builder $query): Builder => $query
+                    ->whereIn('group_id', $filters['groups'])
+            )
+            ->when(
+                $filters['student'] ?? null,
+                fn(Builder $query): Builder => $query
+                    ->whereHas(
+                        'group.students',
+                        fn(Builder $query): Builder => $query
+                            ->where('id', '=', $filters['student']),
+                    )
+                    ->whereHas(
+                        'formation.students',
+                        fn(Builder $query): Builder => $query
+                            ->where('id', '=', $filters['student']),
+                    )
+            )
             ->get();
-        }
 
-        $formations = Formation::get();
-        $groups = Group::get();
-
-
-        return view('schedule', ['courses' => $courses, 'formations' => $formations, 'groups' => $groups]);
-    }
-
-    public function store(ScheduleRequest $request)
-    {
-        $data = $request->validated();
-
-        return redirect()->route('schedule.index', ['filters' => $data]);
-    }
-
-    public function show(Course $course)
-    {
-        return view('schedule.show', ['course' => $course]);
+        return view('schedule.index', [
+            'formations' => Formation::orderBy('name')->get(),
+            'groups'  => Group::orderBy('name')->get(),
+            'students'  => Student::orderBy('lastname')->orderBy('firstname')->get(),
+            'filters' => $filters,
+            'courses' => $courses,
+        ]);
     }
 }

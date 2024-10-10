@@ -32,5 +32,3 @@ Route::get('/group', [GroupController::class, 'index'])->name('group.index');
 Route::get('/group/{group}', [GroupController::class, 'show'])->name('group.show');
 
 Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
-Route::post('/schedule', [ScheduleController::class, 'store'])->name('schedule.store');
-Route::get('/schedule/filter', [ScheduleController::class, 'show'])->name('schedule.show');
